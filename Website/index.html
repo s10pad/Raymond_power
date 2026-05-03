@@ -101,7 +101,7 @@
     /* Hero */
     .hero-section {
       position: relative;
-      min-height: 540px;
+      min-height: 580px;
       display: flex;
       align-items: center;
       overflow: hidden;
@@ -110,7 +110,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(105deg, rgba(10,10,10,0.93) 0%, rgba(10,10,10,0.72) 55%, rgba(10,10,10,0.5) 100%);
+      background: linear-gradient(100deg, rgba(8,8,8,0.88) 0%, rgba(8,8,8,0.68) 48%, rgba(8,8,8,0.38) 100%);
       z-index: 1;
     }
     .hero-bg {
@@ -119,9 +119,37 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
+      object-position: center right;
     }
     .hero-content { position: relative; z-index: 2; }
+
+    /* Logo glow pulse */
+    @keyframes logoPulse {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(245,168,0,0.6), 0 0 32px rgba(245,168,0,0.18); }
+      50%       { box-shadow: 0 0 0 5px rgba(245,168,0,0.85), 0 0 52px rgba(245,168,0,0.35); }
+    }
+    .hero-logo-img {
+      width: 190px;
+      height: 190px;
+      border-radius: 50%;
+      object-fit: cover;
+      animation: logoPulse 3.5s ease-in-out infinite;
+      display: block;
+    }
+
+    /* Van showcase section */
+    .van-section {
+      position: relative;
+      overflow: hidden;
+    }
+    .van-feature-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(0.88) contrast(1.06);
+      display: block;
+    }
 
     /* Section heading */
     .section-tag {
@@ -249,6 +277,16 @@
       .footer-grid { grid-template-columns: repeat(3,1fr) !important; }
       .two-col { grid-template-columns: 1fr 1fr !important; }
       #nav-cta { display: inline-block !important; }
+      /* Hero: text left, logo right */
+      #hero-grid { grid-template-columns: 1fr auto !important; }
+      #hero-logo-col { align-items: center; }
+      .hero-logo-img { width: 220px !important; height: 220px !important; }
+      /* Van showcase: image left, info right */
+      #van-grid { grid-template-columns: 1fr 1fr !important; }
+      #van-grid > div:first-child { min-height: 420px !important; position: relative !important; }
+    }
+    @media (min-width: 1024px) {
+      .hero-logo-img { width: 260px !important; height: 260px !important; }
     }
   </style>
 </head>
@@ -298,21 +336,38 @@
 
   <!-- HERO -->
   <section class="hero-section">
-    <img src="company_assets/van.png" alt="Raymond Power Service LLC company van" class="hero-bg">
-    <div class="hero-content" style="max-width:1200px;margin:0 auto;padding:80px 24px;width:100%;">
-      <div style="max-width:600px;">
-        <p class="section-tag" style="margin-bottom:10px;">General Home Improvement • Est. 2014</p>
-        <h1 style="font-family:'Lato',sans-serif;font-weight:900;font-size:clamp(2.2rem,5.5vw,3.8rem);color:#fff;letter-spacing:-0.02em;line-height:1.08;margin:0 0 18px;text-transform:uppercase;">
-          Raymond Power<br><span style="color:#F5A800;">Service LLC</span>
-        </h1>
-        <div class="section-divider"></div>
-        <p style="font-size:1.05rem;color:#ccc;line-height:1.8;margin:0 0 36px;max-width:480px;">
-          From attic to basement and everything inbetween. Remodeling, plumbing, electrical, decks &amp; more across MD, DC, VA &amp; DE.
-        </p>
-        <div style="display:flex;flex-wrap:wrap;gap:14px;">
-          <a href="tel:7202776799" class="btn-gold" style="font-size:0.9rem;">Call Us: 720-277-6799</a>
-          <a href="#services" class="btn-outline-gold" style="font-size:0.9rem;">Our Services</a>
+    <img src="company_assets/van.png" alt="Raymond Power Service LLC company van on the road" class="hero-bg">
+    <div class="hero-content" style="max-width:1200px;margin:0 auto;padding:72px 24px;width:100%;">
+      <div style="display:grid;grid-template-columns:1fr;gap:40px;align-items:center;" id="hero-grid">
+
+        <!-- Left: text -->
+        <div style="max-width:560px;">
+          <p class="section-tag" style="margin-bottom:10px;">General Home Improvement &bull; Est. 2014</p>
+          <h1 style="font-family:'Lato',sans-serif;font-weight:900;font-size:clamp(2.2rem,5.5vw,3.8rem);color:#fff;letter-spacing:-0.02em;line-height:1.08;margin:0 0 18px;text-transform:uppercase;">
+            Raymond Power<br><span style="color:#F5A800;">Service LLC</span>
+          </h1>
+          <div class="section-divider"></div>
+          <p style="font-size:1rem;color:#d8d8d8;line-height:1.8;margin:0 0 14px;max-width:480px;">
+            General Home Improvement &amp; Remodeling Contractor Since 2014.
+          </p>
+          <p style="font-size:0.92rem;color:#aaa;line-height:1.75;margin:0 0 32px;max-width:480px;">
+            Remodeling &bull; Plumbing &bull; Electricity &bull; Repair &bull; Maintenance &bull; Decks<br>
+            <strong style="color:#F5A800;">Covering: MD, DC, VA, DE &bull; Licensed &amp; Insured</strong>
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;">
+            <a href="tel:7202776799" class="btn-gold">720-277-6799</a>
+            <a href="tel:9782355544" class="btn-outline-gold">978-235-5544</a>
+          </div>
         </div>
+
+        <!-- Right: logo emblem -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:16px;" id="hero-logo-col">
+          <img src="company_assets/raymond-logo.png" alt="Raymond Power Service LLC seal" class="hero-logo-img">
+          <p style="font-family:'Lato',sans-serif;font-weight:700;font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(245,168,0,0.8);text-align:center;margin:0;">
+            General Home Improvement Services
+          </p>
+        </div>
+
       </div>
     </div>
   </section>
@@ -453,13 +508,74 @@
     </div>
   </section>
 
+  <!-- VAN SHOWCASE -->
+  <section class="van-section" id="fleet" style="background:#141414;">
+    <div style="display:grid;grid-template-columns:1fr;" id="van-grid">
+
+      <!-- Van image panel -->
+      <div style="position:relative;min-height:340px;overflow:hidden;">
+        <img src="company_assets/van.png" alt="Raymond Power Service LLC fully branded company van" class="van-feature-img" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;">
+        <!-- subtle right-to-left gradient so text panel reads on mobile overlay -->
+        <div style="position:absolute;inset:0;background:linear-gradient(to bottom, transparent 40%, rgba(14,14,14,0.85) 100%);"></div>
+      </div>
+
+      <!-- Info panel -->
+      <div style="background:#141414;padding:48px 32px;display:flex;flex-direction:column;justify-content:center;">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
+          <img src="company_assets/raymond-logo.png" alt="Raymond Power logo seal"
+            style="width:64px;height:64px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px rgba(245,168,0,0.55);flex-shrink:0;">
+          <div>
+            <div style="font-family:'Lato',sans-serif;font-weight:900;font-size:0.92rem;color:#fff;letter-spacing:0.08em;text-transform:uppercase;line-height:1.1;">Raymond Power</div>
+            <div style="font-size:0.6rem;letter-spacing:0.2em;color:#F5A800;text-transform:uppercase;font-weight:700;">Service LLC</div>
+          </div>
+        </div>
+
+        <p class="section-tag">See Us On The Road</p>
+        <h2 class="section-title" style="font-size:clamp(1.6rem,3.5vw,2.2rem);margin-bottom:0;">Our Branded Fleet</h2>
+        <div class="section-divider"></div>
+
+        <p style="color:#888;line-height:1.8;margin:0 0 20px;font-size:0.92rem;">
+          When you spot our van in your neighborhood, you know quality craftsmanship is nearby. Fully equipped and ready for any home improvement project — from attic to basement.
+        </p>
+
+        <!-- Services chips from van wrap -->
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;">
+          <span style="background:#1e1e1e;border:1px solid #333;color:#ccc;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:5px 12px;">Remodeling</span>
+          <span style="background:#1e1e1e;border:1px solid #333;color:#ccc;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:5px 12px;">Plumbing</span>
+          <span style="background:#1e1e1e;border:1px solid #333;color:#ccc;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:5px 12px;">Electricity</span>
+          <span style="background:#1e1e1e;border:1px solid #333;color:#ccc;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:5px 12px;">Repair</span>
+          <span style="background:#1e1e1e;border:1px solid #333;color:#ccc;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:5px 12px;">Maintenance</span>
+          <span style="background:#1e1e1e;border:1px solid #333;color:#ccc;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:5px 12px;">Decks</span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:12px;padding:14px 18px;background:#1e1e1e;border-left:3px solid #F5A800;margin-bottom:24px;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F5A800" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span style="color:#aaa;font-size:0.84rem;">Covering: <strong style="color:#fff;">MD &bull; DC &bull; VA &bull; DE</strong></span>
+        </div>
+
+        <div style="display:flex;flex-wrap:wrap;gap:12px;">
+          <a href="tel:7202776799" class="btn-gold" style="font-size:0.84rem;padding:11px 26px;">720-277-6799</a>
+          <a href="tel:9782355544" class="btn-outline-gold" style="font-size:0.84rem;padding:9px 22px;">978-235-5544</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ABOUT -->
   <section id="about" style="background:hsl(0,0%,28%);padding:80px 24px;">
     <div style="max-width:1200px;margin:0 auto;">
       <div class="two-col" style="display:grid;grid-template-columns:1fr;gap:48px;align-items:center;">
 
-        <div style="display:flex;justify-content:center;">
-          <img src="company_assets/Boss.png" alt="Raymond Power owner on site" class="about-img">
+        <!-- Two owner photos side by side -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end;">
+          <div>
+            <img src="company_assets/boss_cross.png" alt="Raymond Power owner standing in front of the company van"
+              style="width:100%;height:auto;display:block;border-left:4px solid #F5A800;filter:sepia(6%) contrast(1.04) brightness(0.95);box-shadow:0 8px 36px rgba(0,0,0,0.55);">
+          </div>
+          <div>
+            <img src="company_assets/Boss.png" alt="Raymond Power owner reviewing project details"
+              style="width:100%;height:auto;display:block;border-right:4px solid #F5A800;filter:sepia(6%) contrast(1.04) brightness(0.95);box-shadow:0 8px 36px rgba(0,0,0,0.55);margin-top:24px;">
+          </div>
         </div>
 
         <div>
